@@ -11,6 +11,7 @@ export class ProductsController {
         return;
     }
     @Get(':id')
+
     async getByIdProduct(){
         return;
     }
@@ -19,10 +20,12 @@ export class ProductsController {
         return;
     }
     @Patch(':id')
+
     async updateProduct(){
         return;
     }
     @Delete(':id')
+    @ApiParam({ name: 'id', description: 'ID of the item', type: String })
     async deleteProduct(){
         return;
     }

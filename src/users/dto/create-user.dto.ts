@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { roles } from "../schema/user.schema";
 export class CreateUserDto {
   @ApiProperty()
@@ -6,9 +6,9 @@ export class CreateUserDto {
   @ApiProperty()
   readonly email: string;
   @ApiProperty()
-  readonly password: string;
+  password: string;
   @ApiProperty()
   readonly role: roles;
-  @ApiProperty()
-  readonly date: Date
+  @ApiPropertyOptional()
+  readonly date?: Date
   }

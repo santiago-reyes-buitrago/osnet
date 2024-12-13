@@ -1,10 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { PurchasesService } from './purchases.service';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { UpdatePurchaseDto } from './dto/update-purchase.dto';
-import { ApiParam } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { ObjectId } from 'mongoose';
+import { JwtAuthGuard } from 'src/users/jwt-auth.guard';
 
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('purchases')
 export class PurchasesController {
   constructor(private readonly purchasesService: PurchasesService) {}
@@ -15,6 +18,7 @@ export class PurchasesController {
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: 'id', description: 'ID of the item', type: String })
   findOne(@Param('id') id: ObjectId) {
     return this.purchasesService.findOne(id);

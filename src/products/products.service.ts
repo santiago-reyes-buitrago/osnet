@@ -18,12 +18,12 @@ export class ProductsService {
         async findByID(id){
             return this.productModel.findById(id).exec();
         }
-        async create(user: CreateProductDto){
-            const newUser = new this.productModel(user);
+        async create(product: CreateProductDto){
+            const newUser = new this.productModel(product);
             return newUser.save();
         }
-        async update(id: string,user: UpdateProductDto){
-            return this.productModel.findByIdAndUpdate({ _id: id }, user, { new: true })
+        async update(id: string,product: UpdateProductDto){
+            return this.productModel.findByIdAndUpdate({ _id: id }, product, { new: true })
         }
         async delete(id:string){
             return this.productModel.findByIdAndDelete({ _id: id });

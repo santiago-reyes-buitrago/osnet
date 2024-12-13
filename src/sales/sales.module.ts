@@ -3,6 +3,7 @@ import { SalesService } from './sales.service';
 import { SalesController } from './sales.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Sale, SaleSchema } from './schema/sale.schema';
+import { jwtStrategy } from 'src/users/jwt.strategy';
 
 @Module({
   imports: [MongooseModule.forFeature([
@@ -12,6 +13,6 @@ import { Sale, SaleSchema } from './schema/sale.schema';
       }
     ])],
   controllers: [SalesController],
-  providers: [SalesService],
+  providers: [SalesService,jwtStrategy],
 })
 export class SalesModule {}

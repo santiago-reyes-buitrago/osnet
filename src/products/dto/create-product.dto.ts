@@ -1,8 +1,17 @@
-/* eslint-disable prettier/prettier */
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { Category } from "src/sales/schema/sale.schema";
+
 export class CreateProductDto {
-    readonly name: string;
-    readonly description: string;
-    readonly price: number;
-    readonly cost: number;
-    readonly date?: Date
-  }
+  @ApiProperty()
+  readonly name: string;
+  @ApiProperty()
+  readonly description: string;
+  @ApiProperty()
+  readonly price: number;
+  @ApiProperty()
+  readonly cost: number;
+  @ApiPropertyOptional()
+  readonly category?: Category
+  @ApiPropertyOptional()
+  readonly date?: Date;
+}

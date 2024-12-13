@@ -1,5 +1,9 @@
-/* eslint-disable prettier/prettier */
 import { Prop, Schema,SchemaFactory } from "@nestjs/mongoose";
+
+export enum Category {
+    Maquillaje = "Maquillaje",
+    Bienes = "Bienes"
+}
 @Schema()
 export class Product{
     @Prop({required:true})
@@ -10,6 +14,8 @@ export class Product{
     price: number;
     @Prop()
     cost: number
+    @Prop({default: Category.Bienes})
+    bienes: Category
     @Prop({default: Date.now() })
     date: Date
 }

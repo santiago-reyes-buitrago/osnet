@@ -1,9 +1,14 @@
-/* eslint-disable prettier/prettier */
+import { ApiPropertyOptional } from "@nestjs/swagger";
 import { roles } from "../schema/user.schema";
 export class UpdateUserDto {
-    readonly name?: string;
-    readonly email?: string;
-    readonly password?: string;
-    readonly role?: roles;
-    readonly date?: Date
-  }
+  @ApiPropertyOptional()
+  readonly name?: string;
+  @ApiPropertyOptional()
+  readonly email?: string;
+  @ApiPropertyOptional()
+  readonly password?: string;
+  @ApiPropertyOptional()
+  readonly role?: roles;
+  @ApiPropertyOptional()
+  readonly date?: Date
+}

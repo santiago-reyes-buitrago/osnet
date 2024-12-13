@@ -2,15 +2,12 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { PurchasesService } from './purchases.service';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { UpdatePurchaseDto } from './dto/update-purchase.dto';
+import { ApiParam } from '@nestjs/swagger';
+import { ObjectId } from 'mongoose';
 
 @Controller('purchases')
 export class PurchasesController {
   constructor(private readonly purchasesService: PurchasesService) {}
-
-  @Post()
-  create(@Body() createPurchaseDto: CreatePurchaseDto) {
-    return this.purchasesService.create(createPurchaseDto);
-  }
 
   @Get()
   findAll() {
@@ -18,20 +15,25 @@ export class PurchasesController {
   }
 
   @Get(':id')
+  @ApiParam({ name: 'id', description: 'ID of the item', type: String })
+  findOne(@Param('id') id: ObjectId) {
+    return this.purchasesService.findOne(id);
+  }
 
-  findOne(@Param('id') id: string) {
-    return this.purchasesService.findOne(+id);
+  @Post()
+  create(@Body() createPurchaseDto: CreatePurchaseDto) {
+    return this.purchasesService.create(createPurchaseDto);
   }
 
   @Patch(':id')
-
-  update(@Param('id') id: string, @Body() updatePurchaseDto: UpdatePurchaseDto) {
-    return this.purchasesService.update(+id, updatePurchaseDto);
+  @ApiParam({ name: 'id', description: 'ID of the item', type: String })
+  update(@Param('id') id: ObjectId, @Body() updatePurchaseDto: UpdatePurchaseDto) {
+    return this.purchasesService.update(id, updatePurchaseDto);
   }
 
   @Delete(':id')
-  
-  remove(@Param('id') id: string) {
-    return this.purchasesService.remove(+id);
+  @ApiParam({ name: 'id', description: 'ID of the item', type: String })
+  remove(@Param('id') id: ObjectId) {
+    return this.purchasesService.remove(id);
   }
 }

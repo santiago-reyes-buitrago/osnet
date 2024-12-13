@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { UpdatePurchaseDto } from './dto/update-purchase.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Purchase } from './schema/purchase.schema';
+import { Model, ObjectId } from 'mongoose';
 
 @Injectable()
 export class PurchasesService {
+  constructor(
+          @InjectModel(Purchase.name) private readonly PurchaseModel: Model<Purchase>
+      ){}
   create(createPurchaseDto: CreatePurchaseDto) {
-    return 'This action adds a new purchase';
+    const newPurchase = new this.PurchaseModel(createPurchaseDto);  ;
+    return newPurchase.save();
   }
 
   findAll() {
-    return `This action returns all purchases`;
+    return this.PurchaseModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} purchase`;
+  findOne(id: ObjectId) {
+    return this.PurchaseModel.findById(id);
   }
 
-  update(id: number, updatePurchaseDto: UpdatePurchaseDto) {
-    return `This action updates a #${id} purchase`;
+  update(id: ObjectId, updatePurchaseDto: UpdatePurchaseDto) {
+    return this.PurchaseModel.findByIdAndUpdate({_id: id},updatePurchaseDto, { new: true });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} purchase`;
+  remove(id: ObjectId) {
+    return this.PurchaseModel.findByIdAndDelete({_id: id});
   }
 }
